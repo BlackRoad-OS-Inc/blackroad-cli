@@ -1,12 +1,6 @@
 name: Deploy to DigitalOcean Droplet
 
 on:
-  push:
-    branches: [main, master]
-    paths:
-      - 'droplet-services/**'
-      - 'docker-compose.yaml'
-      - 'Dockerfile'
   workflow_dispatch:
 
 jobs:
