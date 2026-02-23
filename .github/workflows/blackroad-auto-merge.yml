@@ -1,18 +1,7 @@
 name: 🤖 BlackRoad Auto-Merge
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-  check_suite:
-    types: [completed]
-  workflow_run:
-    workflows: ["🔍 BlackRoad Compliance Check"]
-    types: [completed]
-
-permissions:
-  contents: write
-  pull-requests: write
-  checks: read
+  workflow_dispatch:
 
 jobs:
   auto-merge:
