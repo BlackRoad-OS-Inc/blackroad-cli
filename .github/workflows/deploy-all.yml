@@ -1,20 +1,7 @@
 name: Deploy Everything (Multi-Cloud)
 
 on:
-  push:
-    branches: [main, master]
   workflow_dispatch:
-    inputs:
-      platform:
-        description: 'Platform to deploy'
-        required: false
-        default: 'all'
-        type: choice
-        options:
-          - all
-          - cloudflare
-          - railway
-          - droplet
 
 jobs:
   # Phase 1: Deploy Static Sites to Cloudflare Pages
