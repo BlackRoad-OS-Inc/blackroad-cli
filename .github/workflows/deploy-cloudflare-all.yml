@@ -1,16 +1,7 @@
 name: 🚀 Deploy All Domains to Cloudflare
 
 on:
-  push:
-    branches: [master, main]
-    paths:
-      - 'domains/**'
-      - '.github/workflows/deploy-cloudflare-all.yml'
   workflow_dispatch:
-
-env:
-  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
 jobs:
   detect-changes:
