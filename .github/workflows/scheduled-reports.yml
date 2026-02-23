@@ -10,13 +10,7 @@
 name: Weekly Report
 
 on:
-  schedule:
-    - cron: '0 9 * * 1'  # Monday 9 AM UTC
   workflow_dispatch:
-
-permissions:
-  issues: write
-  contents: read
 
 jobs:
   report:
