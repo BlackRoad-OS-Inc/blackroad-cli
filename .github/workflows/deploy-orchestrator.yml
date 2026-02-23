@@ -1,13 +1,6 @@
 name: Deploy Railway Orchestrator
 
 on:
-  push:
-    branches:
-      - main
-      - master
-    paths:
-      - 'blackroad-orchestrator/**'
-      - '.github/workflows/deploy-orchestrator.yml'
   workflow_dispatch:
 
 jobs:
