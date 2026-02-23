@@ -4,17 +4,7 @@ name: Auto-Approve and Merge
 # No human approval required - CI is the gatekeeper
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, labeled]
-  check_suite:
-    types: [completed]
-  workflow_run:
-    workflows: ["CI", "Auto Deploy"]
-    types: [completed]
-
-permissions:
-  contents: write
-  pull-requests: write
+  workflow_dispatch:
 
 jobs:
   auto-merge:
