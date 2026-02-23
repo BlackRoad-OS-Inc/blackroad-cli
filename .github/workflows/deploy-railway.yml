@@ -1,12 +1,6 @@
 name: Deploy to Railway
 
 on:
-  push:
-    branches: [main, master]
-    paths:
-      - '**/*.py'
-      - 'requirements.txt'
-      - 'railway-services/**'
   workflow_dispatch:
 
 jobs:
