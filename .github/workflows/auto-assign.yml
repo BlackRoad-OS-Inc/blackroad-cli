@@ -10,11 +10,7 @@
 name: Auto Assign
 
 on:
-  pull_request:
-    types: [opened, ready_for_review]
-
-permissions:
-  pull-requests: write
+  workflow_dispatch:
 
 jobs:
   auto-assign:
