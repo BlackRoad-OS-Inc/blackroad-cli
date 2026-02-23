@@ -10,11 +10,7 @@
 name: Issue Triage
 
 on:
-  issues:
-    types: [opened, labeled]
-
-permissions:
-  issues: write
+  workflow_dispatch:
 
 jobs:
   triage:
