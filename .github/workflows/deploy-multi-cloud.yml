@@ -1,12 +1,7 @@
 name: 🌍 Deploy Multi-Cloud
 
 on:
-  push:
-    branches: [master, main]
   workflow_dispatch:
-
-env:
-  NODE_VERSION: '20'
 
 jobs:
   deploy-cloudflare:
