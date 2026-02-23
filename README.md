@@ -1,5 +1,7 @@
 # blackroad-cli
 
+[![CI](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/ci.yml)
+
 **AI Agent Orchestration CLI with consent management, policy enforcement, and audit trails.**
 
 ```bash
