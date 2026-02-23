@@ -11,17 +11,7 @@
 name: Security
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
-  schedule:
-    - cron: '0 0 * * 0'  # Weekly on Sunday midnight
   workflow_dispatch:
-
-permissions:
-  contents: read
-  security-events: write
 
 jobs:
   # ─────────────────────────────────────────────────────────────────────────
