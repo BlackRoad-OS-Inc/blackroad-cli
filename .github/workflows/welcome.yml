@@ -10,14 +10,7 @@
 name: Welcome
 
 on:
-  issues:
-    types: [opened]
-  pull_request_target:
-    types: [opened]
-
-permissions:
-  issues: write
-  pull-requests: write
+  workflow_dispatch:
 
 jobs:
   welcome:
