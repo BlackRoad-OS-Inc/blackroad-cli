@@ -1,14 +1,6 @@
 name: 🥧 Deploy to Raspberry Pi Fleet
 
 on:
-  push:
-    branches: [master, main]
-    paths:
-      - 'blackroad-*.py'
-      - 'blackroad-*.sh'
-      - 'br-*'
-      - 'agents/**'
-      - '.github/workflows/deploy-to-pis.yml'
   workflow_dispatch:
 
 jobs:
