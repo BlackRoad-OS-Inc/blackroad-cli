@@ -1,12 +1,6 @@
 name: Deploy BlackRoad Browser OS
 
 on:
-  push:
-    branches: [master, main]
-    paths:
-      - 'blackroad-browser-os.py'
-      - 'blackroad-dashboard-server.py'
-      - '.github/workflows/deploy-browser-os.yml'
   workflow_dispatch:
 
 jobs:
