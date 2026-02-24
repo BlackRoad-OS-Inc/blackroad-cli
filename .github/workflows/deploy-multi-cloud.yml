@@ -6,7 +6,7 @@ on:
 jobs:
   deploy-cloudflare:
     name: ☁️ Cloudflare Pages
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - uses: actions/checkout@v4
 
@@ -17,7 +17,7 @@ jobs:
 
   deploy-vercel:
     name: ▲ Vercel
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     if: github.event_name == 'push'
     strategy:
       matrix:
@@ -51,7 +51,7 @@ jobs:
 
   deploy-railway:
     name: 🚂 Railway
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4
@@ -67,7 +67,7 @@ jobs:
 
   deploy-digitalocean:
     name: 🌊 DigitalOcean
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4
@@ -88,7 +88,7 @@ jobs:
 
   deploy-pis:
     name: 🥧 Raspberry Pi Fleet
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     if: github.event_name == 'push'
     steps:
       - name: Trigger Pi deployment workflow
@@ -98,7 +98,7 @@ jobs:
 
   update-notion:
     name: 📝 Update Notion
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-cloudflare, deploy-vercel, deploy-railway, deploy-digitalocean]
     if: always()
     steps:
@@ -114,7 +114,7 @@ jobs:
 
   update-asana:
     name: 📊 Update Asana
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-cloudflare, deploy-vercel, deploy-railway, deploy-digitalocean]
     if: always()
     steps:
@@ -129,7 +129,7 @@ jobs:
 
   notify-success:
     name: ✅ Multi-Cloud Deploy Complete
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-vercel, deploy-railway, deploy-digitalocean, update-notion, update-asana]
     if: always()
     steps:
