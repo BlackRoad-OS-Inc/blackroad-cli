@@ -15,7 +15,7 @@ on:
 jobs:
   welcome:
     name: Welcome New Contributors
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - uses: actions/first-interaction@v1
         with:
