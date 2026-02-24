@@ -8,7 +8,7 @@ on:
 
 jobs:
   auto-merge:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
 
     # Trusted actors - auto-merge their PRs
     if: |
