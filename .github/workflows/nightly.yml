@@ -16,7 +16,7 @@ on:
 jobs:
   health-check:
     name: Health Check
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
