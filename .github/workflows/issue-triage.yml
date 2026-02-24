@@ -15,7 +15,7 @@ on:
 jobs:
   triage:
     name: Triage New Issues
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - name: Add triage label to new issues
         if: github.event.action == 'opened'
