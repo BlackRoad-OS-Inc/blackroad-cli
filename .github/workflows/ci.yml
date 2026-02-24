@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Test & Lint
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,7 +24,7 @@ jobs:
 
   publish:
     name: Publish to npm
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
