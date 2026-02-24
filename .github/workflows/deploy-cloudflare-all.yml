@@ -6,7 +6,7 @@ on:
 jobs:
   detect-changes:
     name: 🔍 Detect Changed Domains
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     outputs:
       domains: ${{ steps.changes.outputs.domains }}
     steps:
@@ -23,7 +23,7 @@ jobs:
 
   deploy-math:
     name: 🧮 Deploy math.blackroad.io
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'math-blackroad-io')
     steps:
@@ -52,7 +52,7 @@ jobs:
 
   deploy-blackroadai:
     name: 🤖 Deploy blackroadai.com
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'blackroadai')
     steps:
@@ -66,7 +66,7 @@ jobs:
 
   deploy-lucidia-earth:
     name: 🌍 Deploy lucidia.earth
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'lucidia-earth')
     steps:
@@ -80,7 +80,7 @@ jobs:
 
   deploy-blackroad-me:
     name: 💜 Deploy blackroad.me
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'blackroad-me')
     steps:
@@ -94,7 +94,7 @@ jobs:
 
   deploy-all-static:
     name: 📦 Deploy All Static Sites
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: detect-changes
     strategy:
       matrix:
@@ -123,7 +123,7 @@ jobs:
 
   notify-success:
     name: ✅ Notify Deployment Success
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-math, deploy-blackroadai, deploy-lucidia-earth, deploy-blackroad-me, deploy-all-static]
     if: always()
     steps:
