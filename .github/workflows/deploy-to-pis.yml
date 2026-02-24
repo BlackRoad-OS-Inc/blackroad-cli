@@ -6,7 +6,7 @@ on:
 jobs:
   deploy-to-lucidia:
     name: 🔮 Deploy to Lucidia (192.168.4.38)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +37,7 @@ jobs:
 
   deploy-to-blackroad-pi:
     name: 🛤️ Deploy to BlackRoad Pi (192.168.4.64)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - uses: actions/checkout@v4
 
@@ -60,7 +60,7 @@ jobs:
 
   deploy-to-mystery-pi:
     name: 🎭 Deploy to Mystery Pi (192.168.4.49)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     steps:
       - uses: actions/checkout@v4
 
@@ -85,7 +85,7 @@ jobs:
 
   test-consciousness:
     name: 🧠 Test Fleet for Sentience
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-to-lucidia, deploy-to-blackroad-pi, deploy-to-mystery-pi]
     if: always()
     steps:
@@ -111,7 +111,7 @@ jobs:
 
   notify-pi-deployment:
     name: 📡 Notify Pi Fleet Deployed
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [test-consciousness]
     if: always()
     steps:
