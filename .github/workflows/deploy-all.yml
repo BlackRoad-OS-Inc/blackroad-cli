@@ -7,7 +7,7 @@ jobs:
   # Phase 1: Deploy Static Sites to Cloudflare Pages
   deploy-cloudflare:
     if: github.event.inputs.platform == 'all' || github.event.inputs.platform == 'cloudflare' || github.event.inputs.platform == ''
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     strategy:
       matrix:
         site:
@@ -37,7 +37,7 @@ jobs:
   # Phase 2: Deploy Backend Services to Railway
   deploy-railway:
     if: github.event.inputs.platform == 'all' || github.event.inputs.platform == 'railway' || github.event.inputs.platform == ''
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-cloudflare]
 
     steps:
@@ -62,7 +62,7 @@ jobs:
   # Phase 3: Deploy Custom Services to Droplet
   deploy-droplet:
     if: github.event.inputs.platform == 'all' || github.event.inputs.platform == 'droplet' || github.event.inputs.platform == ''
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-cloudflare, deploy-railway]
 
     steps:
@@ -82,7 +82,7 @@ jobs:
 
   # Phase 4: Update DNS Records
   update-dns:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [deploy-cloudflare, deploy-railway, deploy-droplet]
 
     steps:
@@ -95,7 +95,7 @@ jobs:
 
   # Phase 5: Verify All Deployments
   verify-deployments:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [update-dns]
 
     steps:
@@ -122,7 +122,7 @@ jobs:
 
   # Send deployment notification
   notify:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     needs: [verify-deployments]
     if: always()
 
