@@ -5,7 +5,7 @@ on:
 
 jobs:
   detect-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, blackroad-fleet]
     permissions:
       contents: read
       pull-requests: write
