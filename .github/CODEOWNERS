@@ -1,13 +1,5 @@
-# BlackRoad OS Code Owners
-* @alexa
+# BlackRoad OS Inc — CODEOWNERS
+# All changes require review from org owner
+# © BlackRoad OS, Inc.
 
-# Python services
-*.py @alexa
-
-# Railway configurations
-railway*.json @alexa
-railway*.toml @alexa
-
-# Security-sensitive files
-.env* @alexa
-*secret* @alexa
+* @blackboxprogramming
