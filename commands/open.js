@@ -11,6 +11,8 @@ const targets = {
   gh: { url: dashboards.github, desc: 'GitHub Organization' },
   status: { url: dashboards.status, desc: 'Status Page' },
   actions: { url: dashboards.actions, desc: 'GitHub Actions' },
+  design: { url: dashboards.design, desc: 'Brand Design Repo' },
+  operator: { url: dashboards.operator, desc: 'Operator Repo' },
 
   // Quick links
   docs: { url: 'https://docs.blackroad.io', desc: 'Documentation' },
@@ -68,6 +70,8 @@ export async function openCommand(target) {
   console.log(chalk.cyan('    github') + chalk.gray(' (or gh) - GitHub Organization'));
   console.log(chalk.cyan('    actions') + chalk.gray(' - GitHub Actions'));
   console.log(chalk.cyan('    status') + chalk.gray(' - Status Page'));
+  console.log(chalk.cyan('    design') + chalk.gray(' - Brand Design Repo'));
+  console.log(chalk.cyan('    operator') + chalk.gray(' - Operator Repo'));
 
   console.log(chalk.gray('\n  Services:'));
   getAllServices().slice(0, 5).forEach(s => {
