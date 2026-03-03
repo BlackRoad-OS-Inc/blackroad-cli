@@ -1,6 +1,7 @@
 import chalk from 'chalk';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { getServiceBySlug, getAllServices, dashboards } from '../lib/services.js';
+import { validateUrl } from '../lib/utils.js';
 
 const targets = {
   // Dashboards
@@ -20,13 +21,18 @@ const targets = {
 };
 
 function openUrl(url) {
-  const cmd = process.platform === 'darwin'
-    ? `open "${url}"`
-    : process.platform === 'win32'
-      ? `start "${url}"`
-      : `xdg-open "${url}"`;
+  if (!validateUrl(url)) {
+    console.log(chalk.red(`\n  Invalid URL: ${url}\n`));
+    return;
+  }
 
-  exec(cmd, (err) => {
+  const [bin, ...args] = process.platform === 'darwin'
+    ? ['open', url]
+    : process.platform === 'win32'
+      ? ['cmd', '/c', 'start', '', url]
+      : ['xdg-open', url];
+
+  execFile(bin, args, (err) => {
     if (err) {
       console.log(chalk.red(`\n  Could not open browser: ${err.message}\n`));
     }

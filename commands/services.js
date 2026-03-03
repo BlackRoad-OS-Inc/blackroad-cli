@@ -26,7 +26,7 @@ export async function servicesCommand(options) {
   }
 
   // Print all categories
-  for (const [key, cat] of Object.entries(categories)) {
+  for (const [, cat] of Object.entries(categories)) {
     printCategory(cat.title, cat.data);
   }
 
