@@ -6,11 +6,11 @@ on:
 jobs:
   detect-changes:
     name: 🔍 Detect Changed Domains
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     outputs:
       domains: ${{ steps.changes.outputs.domains }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           fetch-depth: 2
 
@@ -23,14 +23,14 @@ jobs:
 
   deploy-math:
     name: 🧮 Deploy math.blackroad.io
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'math-blackroad-io')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
         with:
           node-version: '20'
           cache: 'npm'
@@ -52,11 +52,11 @@ jobs:
 
   deploy-blackroadai:
     name: 🤖 Deploy blackroadai.com
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'blackroadai')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Deploy to Cloudflare Pages
         working-directory: domains/blackroadai
@@ -66,11 +66,11 @@ jobs:
 
   deploy-lucidia-earth:
     name: 🌍 Deploy lucidia.earth
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'lucidia-earth')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Deploy to Cloudflare Pages
         working-directory: domains/lucidia-earth
@@ -80,11 +80,11 @@ jobs:
 
   deploy-blackroad-me:
     name: 💜 Deploy blackroad.me
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     needs: detect-changes
     if: contains(needs.detect-changes.outputs.domains, 'blackroad-me')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Deploy to Cloudflare Pages
         working-directory: domains/blackroad-me
@@ -94,7 +94,7 @@ jobs:
 
   deploy-all-static:
     name: 📦 Deploy All Static Sites
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     needs: detect-changes
     strategy:
       matrix:
@@ -107,7 +107,7 @@ jobs:
           - aliceqi
           - blackroad-inc
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Deploy ${{ matrix.domain }}
         working-directory: domains/${{ matrix.domain }}
@@ -123,7 +123,7 @@ jobs:
 
   notify-success:
     name: ✅ Notify Deployment Success
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     needs: [deploy-math, deploy-blackroadai, deploy-lucidia-earth, deploy-blackroad-me, deploy-all-static]
     if: always()
     steps:

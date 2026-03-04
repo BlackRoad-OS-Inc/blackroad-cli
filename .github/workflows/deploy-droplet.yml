@@ -3,16 +3,19 @@ name: Deploy to DigitalOcean Droplet
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Deploy to Droplet via SSH
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@55dabf81b49d4120609345970c91507e2d734799  # v1.0.0
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: root

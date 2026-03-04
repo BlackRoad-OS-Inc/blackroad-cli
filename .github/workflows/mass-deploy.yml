@@ -24,9 +24,12 @@ on:
           - data
           - ecosystem
 
+permissions:
+  contents: read
+
 jobs:
   validate:
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     name: Validate Deployment Request
 
     steps:
@@ -40,7 +43,7 @@ jobs:
 
   deploy-all:
     needs: validate
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     name: Mass Deployment
 
     steps:

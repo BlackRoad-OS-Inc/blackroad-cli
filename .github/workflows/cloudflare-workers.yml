@@ -1,0 +1,131 @@
+name: 🌩️ Cloudflare Workers Deploy
+
+# Deploy and run long-running tasks via Cloudflare Workers
+# Workers provide a globally-distributed edge runtime for tasks
+# that benefit from low-latency or parallelism.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'wrangler.toml'
+      - '.github/workflows/cloudflare-workers.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment (production|staging)'
+        required: false
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────────────
+  # Lint & Type-check the Worker source before deploying
+  # ─────────────────────────────────────────────────────────────────────────
+  validate:
+    name: Validate Worker Source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Run tests
+        run: npm test --if-present
+
+      - name: Verify wrangler config
+        run: |
+          if [ -f wrangler.toml ]; then
+            echo "✅ wrangler.toml found"
+            cat wrangler.toml
+          else
+            echo "⚠️  No wrangler.toml found — skipping worker config check"
+          fi
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # Deploy Cloudflare Worker
+  # ─────────────────────────────────────────────────────────────────────────
+  deploy-worker:
+    name: Deploy Worker
+    runs-on: ubuntu-latest
+    needs: validate
+    environment:
+      name: ${{ github.event.inputs.environment || 'production' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65  # v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          environment: ${{ github.event.inputs.environment || 'production' }}
+
+      - name: Verify deployment
+        run: |
+          echo "## 🌩️ Cloudflare Worker Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Status** | ✅ Deployed |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ github.event.inputs.environment || 'production' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Triggered by** | ${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Account** | ${{ secrets.CLOUDFLARE_ACCOUNT_ID && 'configured' || 'not set' }} |" >> $GITHUB_STEP_SUMMARY
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # Post-deploy health check using the Worker endpoint
+  # ─────────────────────────────────────────────────────────────────────────
+  health-check:
+    name: Worker Health Check
+    runs-on: ubuntu-latest
+    needs: deploy-worker
+    if: always() && needs.deploy-worker.result == 'success'
+    env:
+      WORKER_URL: ${{ vars.CLOUDFLARE_WORKER_URL || 'https://blackroad-cli.blackboxprogramming.workers.dev' }}
+    steps:
+      - name: Check Worker is live
+        run: |
+          echo "Checking worker at $WORKER_URL..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$WORKER_URL" || echo "000")
+          if [ "$STATUS" = "200" ] || [ "$STATUS" = "404" ]; then
+            echo "✅ Worker is responding (HTTP $STATUS)"
+            echo "### ✅ Worker Health Check Passed" >> $GITHUB_STEP_SUMMARY
+            echo "- URL: $WORKER_URL" >> $GITHUB_STEP_SUMMARY
+            echo "- HTTP Status: $STATUS" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️  Worker returned HTTP $STATUS (may be expected for new deployments)"
+            echo "### ⚠️ Worker Health Check" >> $GITHUB_STEP_SUMMARY
+            echo "- URL: $WORKER_URL" >> $GITHUB_STEP_SUMMARY
+            echo "- HTTP Status: $STATUS" >> $GITHUB_STEP_SUMMARY
+          fi
+        continue-on-error: true

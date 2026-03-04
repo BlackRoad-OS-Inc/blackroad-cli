@@ -6,7 +6,7 @@ on:
 jobs:
   deploy-single:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.service_name != ''
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     name: Deploy Single Service
 
     steps:
@@ -17,7 +17,7 @@ jobs:
 
   deploy-category:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.service_name == ''
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     name: Deploy Category
 
     steps:
@@ -28,12 +28,12 @@ jobs:
 
   auto-deploy:
     if: github.event_name == 'push'
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     name: Auto-deploy Changed Services
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           fetch-depth: 2
 
@@ -54,7 +54,7 @@ jobs:
   notify:
     needs: [deploy-single, deploy-category, auto-deploy]
     if: always()
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     steps:
       - name: Deployment status
         run: |

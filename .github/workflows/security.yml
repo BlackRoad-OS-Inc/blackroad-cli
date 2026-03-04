@@ -19,7 +19,7 @@ jobs:
   # ─────────────────────────────────────────────────────────────────────────
   codeql:
     name: CodeQL Analysis
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
@@ -32,19 +32,19 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@ae9ef3a1d2e3413523c3741725c30064970cc0d4  # v3
         with:
           languages: ${{ matrix.language }}
           queries: security-and-quality
 
       - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
+        uses: github/codeql-action/autobuild@ae9ef3a1d2e3413523c3741725c30064970cc0d4  # v3
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@ae9ef3a1d2e3413523c3741725c30064970cc0d4  # v3
         with:
           category: "/language:${{matrix.language}}"
 
@@ -53,13 +53,13 @@ jobs:
   # ─────────────────────────────────────────────────────────────────────────
   dependency-scan:
     name: Dependency Scan
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
         with:
           python-version: '3.11'
 
@@ -88,10 +88,10 @@ jobs:
   # ─────────────────────────────────────────────────────────────────────────
   secret-scan:
     name: Secret Scan
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           fetch-depth: 0
 
@@ -143,13 +143,13 @@ jobs:
   # ─────────────────────────────────────────────────────────────────────────
   sast:
     name: SAST Scan
-    runs-on: [self-hosted, blackroad-fleet]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
         with:
           python-version: '3.11'
 
@@ -181,7 +181,7 @@ for r in d.get('results', [])[:10]:
         continue-on-error: true
 
       - name: Upload Bandit report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
         if: always()
         with:
           name: bandit-report
