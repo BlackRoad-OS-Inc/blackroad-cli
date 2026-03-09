@@ -1,12 +1,7 @@
-FROM node:22-alpine
-
+FROM node:20-alpine
 WORKDIR /app
-
 COPY package*.json ./
-RUN npm ci --only=production
-
+RUN npm ci --production
 COPY . .
-
-EXPOSE 8080
-
-CMD ["npm", "start"]
+RUN npm link
+ENTRYPOINT ["br"]
