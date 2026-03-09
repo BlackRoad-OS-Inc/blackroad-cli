@@ -1,13 +1,7 @@
 import chalk from 'chalk';
 import ora from 'ora';
-import {
-  emoji,
-  phrases,
-  getRandomStatus,
-  progressBar,
-  moodMeter,
-  timeGreeting,
-} from '../lib/emoji.js';
+import { progressBar } from '../lib/emoji.js';
+import { sleep } from '../lib/utils.js';
 
 // Notification templates
 const notifications = {
@@ -185,10 +179,6 @@ function showPrefixes() {
   });
 
   console.log(chalk.gray('\n  Usage: br notify --log <level> "message"\n'));
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export async function notifyCommand(options) {

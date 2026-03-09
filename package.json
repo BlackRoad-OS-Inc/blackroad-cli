@@ -9,9 +9,10 @@
   },
   "scripts": {
     "start": "node bin/br.js",
-    "test": "node --test",
+    "dev": "node --watch bin/br.js",
+    "test": "node --test test/**/*.test.js",
     "lint": "eslint .",
-    "prepublishOnly": "npm run lint",
+    "prepublishOnly": "npm run lint && npm test",
     "build": "echo 'No build step required (ESM)'"
   },
   "keywords": [

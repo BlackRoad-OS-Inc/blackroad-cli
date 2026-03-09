@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import Table from 'cli-table3';
 import { spawn } from 'child_process';
-import { getAllServices, getRailwayServices } from '../lib/services.js';
+import { getAllServices } from '../lib/services.js';
 
 async function checkEndpoint(url, endpoint = '/') {
   const start = Date.now();

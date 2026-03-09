@@ -1,21 +1,10 @@
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import {
-  emoji,
   dictionary,
   exampleSentences,
-  randomSentence,
-  parseToEmoji,
-  grammar,
 } from '../lib/emoji.js';
-
-// Quiz types
-const quizTypes = {
-  translate: 'Translate to Emoji',
-  decode: 'Decode Emoji to English',
-  complete: 'Complete the Sentence',
-  grammar: 'Grammar Challenge',
-};
+import { sleep } from '../lib/utils.js';
 
 // Word quiz questions
 function generateWordQuiz() {
@@ -238,10 +227,6 @@ function getScoreMessage(score, total) {
   if (percent >= 60) return '🥈 Good job! Keep practicing! 💪';
   if (percent >= 40) return '🥉 Not bad! Room for improvement! 📈';
   return '😅 Keep learning! Every expert was once a beginner! 📚';
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 // Flashcard mode

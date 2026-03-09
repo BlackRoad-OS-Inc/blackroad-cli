@@ -4,17 +4,10 @@ import {
   emoji,
   dictionary,
   phrases,
-  grammar,
   exampleSentences,
   parseToEmoji,
   randomSentence,
-  buildSentence,
-  makeQuestion,
-  makeNegative,
-  conjugate,
   timeGreeting,
-  progressBar,
-  moodMeter,
 } from '../lib/emoji.js';
 
 // Translate text to emoji

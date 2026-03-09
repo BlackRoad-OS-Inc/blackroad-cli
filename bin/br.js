@@ -3,6 +3,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import boxen from 'boxen';
+import { createRequire } from 'module';
 
 import { statusCommand } from '../commands/status.js';
 import { deployCommand } from '../commands/deploy.js';
@@ -13,6 +14,20 @@ import { openCommand } from '../commands/open.js';
 import { emojiCommand } from '../commands/emoji.js';
 import { notifyCommand } from '../commands/notify.js';
 import { quizCommand } from '../commands/quiz.js';
+
+const require = createRequire(import.meta.url);
+const { version } = require('../package.json');
+
+process.on('uncaughtException', (err) => {
+  console.error(chalk.red(`\n  Fatal error: ${err.message}\n`));
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason) => {
+  const msg = reason instanceof Error ? reason.message : String(reason);
+  console.error(chalk.red(`\n  Unhandled error: ${msg}\n`));
+  process.exit(1);
+});
 
 const program = new Command();
 
@@ -30,13 +45,7 @@ ${chalk.gray('        R O A D   O S')}
 program
   .name('br')
   .description('BlackRoad OS CLI - Manage your services, deployments, and agents')
-  .version('1.0.0')
-  .hook('preAction', () => {
-    // Show banner on first command
-    if (process.argv.length <= 2) {
-      console.log(banner);
-    }
-  });
+  .version(version);
 
 // Status command
 program

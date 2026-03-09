@@ -95,7 +95,7 @@ export async function deployCommand(serviceName, options) {
   const spinner = options.detach ? ora('📡 Starting deployment...').start() : null;
 
   try {
-    const result = await deployService(service, options.detach);
+    await deployService(service, options.detach);
 
     if (options.detach) {
       spinner?.succeed(chalk.green('🎯 Deployment started in background'));
