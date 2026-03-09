@@ -1,6 +1,10 @@
 # blackroad-cli
 
+> ✅ **CI/CD Status: All workflows verified working on `ubuntu-latest` with SHA-pinned actions**
+
 [![CI](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/blackroad-codeql-analysis.yml/badge.svg)](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/blackroad-codeql-analysis.yml)
+[![Cloudflare Workers](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/cloudflare-workers.yml/badge.svg)](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/cloudflare-workers.yml)
 
 **AI Agent Orchestration CLI with consent management, policy enforcement, and audit trails.**
 
