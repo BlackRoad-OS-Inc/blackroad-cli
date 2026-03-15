@@ -1,116 +1,41 @@
+<div align="center">
+
+<img src="https://images.blackroad.io/pixel-art/road-logo.png" alt="BlackRoad OS" width="80" />
+
 # blackroad-cli
 
-> ✅ **CI/CD Status: All workflows verified working on `ubuntu-latest` with SHA-pinned actions**
+**@blackroad/cli — The BlackRoad OS command-line interface**
 
-[![CI](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/blackroad-codeql-analysis.yml/badge.svg)](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/blackroad-codeql-analysis.yml)
-[![Cloudflare Workers](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/cloudflare-workers.yml/badge.svg)](https://github.com/BlackRoad-OS-Inc/blackroad-cli/actions/workflows/cloudflare-workers.yml)
+[![BlackRoad OS](https://img.shields.io/badge/BlackRoad_OS-Pave_Tomorrow-FF2255?style=for-the-badge&labelColor=000000)](https://blackroad.io)
+[![License](https://img.shields.io/badge/License-Proprietary-FF6B2B?style=for-the-badge&labelColor=000000)](./LICENSE)
+[![Edge AI](https://img.shields.io/badge/Edge_AI-52_TOPS-00D4FF?style=for-the-badge&labelColor=000000)](https://github.com/BlackRoad-OS-Inc)
 
-**AI Agent Orchestration CLI with consent management, policy enforcement, and audit trails.**
+</div>
 
-```bash
-pip install blackroad-cli
-```
+<div align="center">
+<sub>Part of the <a href="https://blackroad.io">BlackRoad OS</a> ecosystem — sovereign edge AI infrastructure</sub>
+</div>
 
-## What is this?
+---
 
-`blackroad-cli` is a command-line tool for orchestrating AI agents with built-in:
+## Overview
 
-- **Consent Management** - Agents must consent before executing tasks
-- **Policy Enforcement** - SEC Rule 2042 compliance gate included
-- **Audit Trails** - Full lineage tracking for every action
-- **Task Routing** - Priority-based task distribution across bot fleet
-
-## Quick Start
-
-```bash
-# List available bots
-blackroad bot list
-
-# Submit a task
-blackroad task submit --type "code-review" --priority high "Review PR #123"
-
-# Check task status
-blackroad task status TSK-20241130-143022
-
-# View audit trail
-blackroad task lineage TSK-20241130-143022
-```
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `blackroad bot list` | List all registered bots |
-| `blackroad bot status <name>` | Get bot health status |
-| `blackroad task submit` | Submit a new task |
-| `blackroad task status <id>` | Check task status |
-| `blackroad task lineage <id>` | View task audit trail |
-| `blackroad policy check <action>` | Verify action against policies |
-| `blackroad config show` | Display current configuration |
-| `blackroad agent spawn` | Create a new agent instance |
-| `blackroad agent retire` | Gracefully retire an agent |
-
-## Architecture
-
-```
-blackroad-cli/
-├── cli/           # Typer CLI entry points
-│   ├── console.py      # Main CLI app
-│   ├── consent_cli.py  # Consent management commands
-│   ├── agent_manager.py # Agent lifecycle
-│   └── consciousness_care.py # Agent wellbeing
-├── orchestrator/  # Core orchestration engine
-│   ├── router.py       # Task routing logic
-│   ├── policy.py       # Policy enforcement
-│   ├── lineage.py      # Audit trail tracking
-│   └── consent.py      # Consent protocols
-├── bots/          # Bot implementations
-└── config/        # Configuration schemas
-```
-
-## Configuration
-
-Create `~/.blackroad/config.yaml`:
-
-```yaml
-approvals:
-  - alice@company.com
-  - bob@company.com
-
-policies:
-  sec_2042:
-    enabled: true
-    require_human_approval: true
-
-lineage:
-  storage: local
-  path: ~/.blackroad/lineage.jsonl
-```
+@blackroad/cli — The BlackRoad OS command-line interface
 
 ## License
 
-MIT - See [LICENSE](LICENSE) for details.
+**Proprietary** — Copyright © 2024–2026 [BlackRoad OS, Inc.](https://blackroad.io) All rights reserved.
+
+Founder & CEO: **Alexa Louise Amundson** · Delaware C-Corp
+
+See [LICENSE](./LICENSE) for full terms.
 
 ---
 
-Built by [BlackRoad OS](https://blackroad.io)
+<div align="center">
 
----
+**BlackRoad OS — Pave Tomorrow.**
 
-## 📜 License & Copyright
+[blackroad.io](https://blackroad.io) · [GitHub](https://github.com/BlackRoad-OS-Inc) · [Brand](https://brand.blackroad.io)
 
-**Copyright © 2026 BlackRoad OS, Inc. All Rights Reserved.**
-
-**CEO:** Alexa Amundson | **PROPRIETARY AND CONFIDENTIAL**
-
-This software is NOT for commercial resale. Testing purposes only.
-
-### 🏢 Enterprise Scale:
-- 30,000 AI Agents
-- 30,000 Human Employees
-- CEO: Alexa Amundson
-
-**Contact:** blackroad.systems@gmail.com
-
-See [LICENSE](LICENSE) for complete terms.
+</div>
