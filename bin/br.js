@@ -14,6 +14,10 @@ import { openCommand } from '../commands/open.js';
 import { emojiCommand } from '../commands/emoji.js';
 import { notifyCommand } from '../commands/notify.js';
 import { quizCommand } from '../commands/quiz.js';
+import { agentsCommand } from '../commands/agents.js';
+import { searchCommand } from '../commands/search.js';
+import { fleetCommand } from '../commands/fleet.js';
+import { chatCommand } from '../commands/chat.js';
 
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
@@ -130,17 +134,54 @@ program
   .option('-c, --count <n>', 'Number of flashcards', '10')
   .action(quizCommand);
 
+// Agents command
+program
+  .command('agents')
+  .alias('a')
+  .description('List and manage BlackRoad agents')
+  .option('-j, --json', 'Output as JSON')
+  .option('-w, --wake <agent>', 'Wake a specific agent')
+  .action(agentsCommand);
+
+// Search command
+program
+  .command('search [query]')
+  .description('Search across repos, codex, memory, agents, and docs')
+  .option('-t, --type <type>', 'Filter: repo, codex, til, agent, doc')
+  .option('-n, --limit <number>', 'Max results', '20')
+  .option('-j, --json', 'Output as JSON')
+  .action(searchCommand);
+
+// Fleet command
+program
+  .command('fleet')
+  .alias('f')
+  .description('Show Pi fleet and infrastructure status')
+  .option('-j, --json', 'Output as JSON')
+  .option('--ssh', 'Show SSH access commands')
+  .action(fleetCommand);
+
+// Chat command
+program
+  .command('chat [message]')
+  .alias('c')
+  .description('Chat with BlackRoad agents (REPL if no message)')
+  .option('-a, --agent <agent>', 'Agent to talk to', 'lucidia')
+  .option('-m, --model <model>', 'Ollama model', 'qwen2.5:7b')
+  .action(chatCommand);
+
 // Show banner when run without arguments
 if (process.argv.length <= 2) {
   console.log(banner);
   console.log(boxen(
     `${chalk.bold('Quick Commands:')}\n\n` +
     `  ${chalk.cyan('br status')}     Check all services\n` +
+    `  ${chalk.cyan('br fleet')}      Pi fleet + infrastructure\n` +
+    `  ${chalk.cyan('br agents')}     List all agents\n` +
+    `  ${chalk.cyan('br chat')}       Talk to agents (REPL)\n` +
+    `  ${chalk.cyan('br search')}     Search everything\n` +
     `  ${chalk.cyan('br deploy')}     Deploy a service\n` +
-    `  ${chalk.cyan('br health')}     Run health checks\n` +
-    `  ${chalk.cyan('br emoji')}      🗣️  Translate to emoji\n` +
-    `  ${chalk.cyan('br quiz')}       🎮 Emoji language games\n` +
-    `  ${chalk.cyan('br notify')}     🔔 Emoji notifications\n\n` +
+    `  ${chalk.cyan('br health')}     Run health checks\n\n` +
     `${chalk.gray('Run')} ${chalk.cyan('br --help')} ${chalk.gray('for all commands')}`,
     {
       padding: 1,
